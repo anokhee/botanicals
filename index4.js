@@ -28,6 +28,7 @@ function turtle() {
     resetMatrix();
     translate(width / 2, height);
     stroke(15);
+    smooth();
     for (var i = 0; i < sentence.length; i++) {
         finished = false;
         var current = sentence.charAt(i);
@@ -59,6 +60,7 @@ function generateStems(iterations) {
 }
 
 function setup() {
+    
     createCanvas(600, 600);
     background(51);
     turtle();
