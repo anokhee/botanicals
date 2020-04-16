@@ -2,6 +2,6 @@
 
 Plant varieties generated with L-Systems - WIP. 
 
-<img width="auto" src="./imgs/v2-fruits.png">
-<img width="auto" src="./imgs/v2-seaweed.png">
-<img width="auto" src="./imgs/v3-wildflowers.png">
+<img width="auto" src="./imgs/version01-fractals.png">
+<img width="auto" src="./imgs/version02-lsystems.png">
+
