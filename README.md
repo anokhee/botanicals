@@ -18,4 +18,7 @@ Phase 2 - L-Systems With Some Randomness (4/15/2020)
 <br><br>
 Phase 3 - Rudimentary Flowers (4/17/2020)
 <img width="auto" src="./imgs/version03-rudimentary-flowers.png">
+<br><br>
+Phase 3 - Rudimentary Flowers (4/17/2020)
+<img width="auto" src="./imgs/version04-object-oriented.png">
 
