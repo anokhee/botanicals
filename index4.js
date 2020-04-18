@@ -41,19 +41,27 @@ function turtle() {
             translate(0, -len);
             // flower rule 
         } else if (current == '*' && i % 4 === 0) {
+            noStroke();
+            fill(255, 0, 0);
             flower(6, len * Math.random());
         } else if (current == 'o'){
+            noStroke();
+            fill(0, 255, 0);
             leaf(15, 5)
         } 
         else if (current == '+') {
+            stroke(1);
             let positiveRotation = angle * Math.random() * randomSeed;
             rotate(positiveRotation);
         } else if (current == '-') {
+            stroke(1);
             let negativeRotation = -angle * Math.random() * randomSeed;
             rotate(negativeRotation);
         } else if (current == '[') {
+            stroke(1);
             push();
         } else if (current == ']') {
+            stroke(1);
             pop();
             count++;
         }
