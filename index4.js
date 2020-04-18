@@ -8,7 +8,7 @@ var flowerArr = [];
 var rules = [];
 rules[0] = {
     a: 'F',
-    b: 'G[o+F][o-F]GF*'
+    b: 'G[+F][-F]GF*'
 };
 
 rules[1] = {
@@ -16,10 +16,14 @@ rules[1] = {
     b: 'GG'
 };
 
+// rules[0] = {
+//     a: 'F',
+//     b: 'FF[FG][-FG]*'
+// };
 
 function setup() {
     createCanvas(630, 630);
-    stroke(10);
+    stroke(100, 100, 50);
     noFill();
     turtle();
 }
@@ -28,7 +32,7 @@ function setup() {
 function turtle() {
     background(255, 255, 250);
     strokeWeight(1);
-    stroke(1);
+    stroke(100, 100, 50);
     angle = radians(Math.random() * (25 - 15) + 15);
     resetMatrix();
     translate(width / 2, height);
@@ -42,26 +46,27 @@ function turtle() {
             // flower rule 
         } else if (current == '*' && i % 4 === 0) {
             noStroke();
-            fill(255, 0, 0);
-            flower(6, len * Math.random());
-        } else if (current == 'o'){
+            fill(random(255), random(255), random(255));
+            flower(6, len * Math.random() * 2);
+        } else if (current == 'o') {
             noStroke();
             fill(0, 255, 0);
             leaf(15, 5)
-        } 
-        else if (current == '+') {
-            stroke(1);
+        } else if (current == '+') {
+            strokeWeight(.5);
+            stroke(100, 100, 50);
             let positiveRotation = angle * Math.random() * randomSeed;
             rotate(positiveRotation);
         } else if (current == '-') {
-            stroke(1);
+            strokeWeight(.5);
+            stroke(100, 100, 50);
             let negativeRotation = -angle * Math.random() * randomSeed;
             rotate(negativeRotation);
         } else if (current == '[') {
-            stroke(1);
+            stroke(100, 100, 50);
             push();
         } else if (current == ']') {
-            stroke(1);
+            stroke(100, 100, 50);
             pop();
             count++;
         }
@@ -72,10 +77,29 @@ function turtle() {
 }
 
 function flower(sides, sideLength) {
-    ellipse(0, 0, sideLength);
+    const numVertices = 7;
+    const spacing = 360 / numVertices;
+    beginShape();
+    for (let i = 0; i < numVertices + 1; i++) {
+        const angle = i * spacing;
+        const x = cos(radians(angle)) * sideLength / 2;
+        const y = sin(radians(angle)) * sideLength / 2;
+
+        if (i == 0) {
+            vertex(x, y);
+        } else {
+            const cAngle = angle - spacing / 2;
+            const cX = cos(radians(cAngle)) * sideLength;
+            const cY = sin(radians(cAngle)) * sideLength;
+            quadraticVertex(cX, cY, x, y)
+        }
+    }
+    endShape();
+    fill(255, 255, 0);
+    ellipse(0, 0, sideLength / 2);
 }
 
-function leaf(leafWidth, leafHeight){
+function leaf(leafWidth, leafHeight) {
     rect(0, 0, leafWidth, leafHeight);
 }
 
