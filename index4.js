@@ -1,74 +1,83 @@
 var angle;
 var axiom = 'F';
 var sentence = axiom;
-var len = Math.random() * (350 - 220) + 220;
+var len = 100;
 
 var count = 0;
-var arr = [];
-
-var iterations = Math.floor(Math.random() * (8 - 4) + 4);
+var count2 = 0;
+var flowerArr = [];
 
 var rules = [];
+// rules[0] = {
+//     a: 'F',
+//     b: 'G[+F][-F]GF'
+// };
+
+// rules[1] = {
+//     a: 'G',
+//     b: 'GG'
+// };
+
+/* Fern-Style Plants */
 rules[0] = {
     a: 'F',
-    b: 'G[+F][-F]GF'
+    b: 'FF[-F][+F-F]'
 };
 
-rules[1] = {
-    a: 'G',
-    b: 'GG'
-};
+
+
+function setup() {
+    createCanvas(window.innerWidth, window.innerHeight);
+    stroke(10);
+    smooth();
+}
+
 
 function turtle() {
-   
-    angle = radians(Math.random() * (25 - 15) + 15);
-    noStroke();
-    background(250);
-    
     resetMatrix();
+    background(255);
+    angle = radians(Math.random() * (25 - 15) + 15);
     translate(width / 2, height);
-    stroke(15);
-    smooth();
+    let v = new p5.Vector(0, 0);
+    flowerArr.push(v);
     for (var i = 0; i < sentence.length; i++) {
-        finished = false;
         var current = sentence.charAt(i);
-        var randomSeed = Math.random() * (2.5 - (-2.5) + -2.5);
         if (current == 'F' || current == 'G') {
-            strokeWeight(1);
-            line(0, 0, 0, -len - Math.random() * randomSeed);
-            // ellipse(0, -len + Math.random() * 15, 3);
-            arr.push([0, -len]);
+            console.log('len', len);
+            line(0, 0, 0, -len);
+            line(-1, 0, 1, 0);
             translate(0, -len);
-            count++;
         } else if (current == '+') {
-            rotate(angle * Math.random() * randomSeed);
+            let positiveRotation = angle;
+            rotate(positiveRotation);
         } else if (current == '-') {
-            rotate(-angle * Math.random() * randomSeed);
+            let negativeRotation = -angle;
+            rotate(negativeRotation);
         } else if (current == '[') {
             push();
         } else if (current == ']') {
             pop();
+            count++;
         }
     }
 }
 
 function generateStems(iterations) {
-    for (i = 0; i < iterations; i++) {
-        turtle();
+    for (i = iterations; i > 0; i--) {
         branch();
+        len *= .5;
     }
 }
 
-function setup() {
-    
-    createCanvas(600, 600);
-    background(51);
-    turtle();
+function generateFlowers() {
+    for (i = 0; i < flowerArr.length; i++) {
+        ellipse(flowerArr[i].x, flowerArr[i].y, 10);
+    }
 }
 
 function draw() {
-    generateStems(iterations);
-    console.log(count, arr.length, sentence.length);
-    console.log(arr);
+    generateStems(3);
+    generateFlowers();
+    translate(0, 0);
     noLoop();
 }
