@@ -1,6 +1,6 @@
 var axiom = 'F';
 var sentence = axiom;
-var len = 300;
+var len = Math.random() * (350 - 250) + 250;
 
 var count = 0;
 var flowerArr = [];
@@ -16,13 +16,10 @@ rules[1] = {
     b: 'GG'
 };
 
-// rules[0] = {
-//     a: 'F',
-//     b: 'FF[FG][-FG]*'
-// };
+
 
 function setup() {
-    createCanvas(630, 630);
+    createCanvas(windowWidth, windowHeight);
     stroke(100, 100, 50);
     noFill();
     turtle();
@@ -30,35 +27,32 @@ function setup() {
 
 
 function turtle() {
-    background(255, 255, 250);
-    strokeWeight(1);
-    stroke(100, 100, 50);
+    background(10);
+
     angle = radians(Math.random() * (25 - 15) + 15);
     resetMatrix();
     translate(width / 2, height);
     for (var i = 0; i < sentence.length; i++) {
         var current = sentence.charAt(i);
-        var randomSeed = 2;
-        if (current == 'F' || current == 'G') {
-            // ellipse(0, -len, 5);
-            line(0, 0, 0, -len);
-            translate(0, -len);
-            // flower rule 
-        } else if (current == '*' && i % 4 === 0) {
+        var randomSeed = Math.random() * (3 - (-3) + -3);
+        if (current == '*' && i % flower.density === 0) {
             noStroke();
-            fill(random(255), random(255), random(255));
-            flower(6, len * Math.random() * 2);
+            makeFlower();
         } else if (current == 'o') {
             noStroke();
             fill(0, 255, 0);
-            leaf(15, 5)
+            leaf(15, len * .15)
+        } else if (current == 'F' || current == 'G') {
+            stroke(30, 100, 44);
+            line(0, 0, 0, -len);
+            translate(0, -len);
         } else if (current == '+') {
-            strokeWeight(.5);
+            strokeWeight(1);
             stroke(100, 100, 50);
             let positiveRotation = angle * Math.random() * randomSeed;
             rotate(positiveRotation);
         } else if (current == '-') {
-            strokeWeight(.5);
+            strokeWeight(1);
             stroke(100, 100, 50);
             let negativeRotation = -angle * Math.random() * randomSeed;
             rotate(negativeRotation);
@@ -76,31 +70,10 @@ function turtle() {
     }
 }
 
-function flower(sides, sideLength) {
-    const numVertices = 7;
-    const spacing = 360 / numVertices;
-    beginShape();
-    for (let i = 0; i < numVertices + 1; i++) {
-        const angle = i * spacing;
-        const x = cos(radians(angle)) * sideLength / 2;
-        const y = sin(radians(angle)) * sideLength / 2;
-
-        if (i == 0) {
-            vertex(x, y);
-        } else {
-            const cAngle = angle - spacing / 2;
-            const cX = cos(radians(cAngle)) * sideLength;
-            const cY = sin(radians(cAngle)) * sideLength;
-            quadraticVertex(cX, cY, x, y)
-        }
-    }
-    endShape();
-    fill(255, 255, 0);
-    ellipse(0, 0, sideLength / 2);
-}
-
 function leaf(leafWidth, leafHeight) {
+    rect(-leafWidth, 0, leafWidth, leafHeight);
     rect(0, 0, leafWidth, leafHeight);
+    // rect(leafWidth, 0, leafWidth, leafHeight);
 }
 
 function generateStems(iterations) {
@@ -130,8 +103,9 @@ function branch() {
     turtle();
 }
 
+
 function draw() {
-    background(255, 255, 250);
+    background(10);
     generateStems(5);
     noLoop();
 }
