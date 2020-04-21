@@ -1,11 +1,9 @@
-var axiom = 'F';
-var sentence = axiom;
-var len = 300;
+const axiom = 'F';
+let len = Math.random() * ((window.innerHeight / 2) - window.innerHeight / 2.8) + window.innerHeight / 2.8;
+let sentence = axiom;
+let count = 0;
 
-var count = 0;
-var flowerArr = [];
-
-var rules = [];
+const rules = [];
 rules[0] = {
     a: 'F',
     b: 'G[+F][-F]GF*'
@@ -16,6 +14,12 @@ rules[1] = {
     b: 'GG'
 };
 
+var mainConfig = {
+    stems: {
+        stemCount: Math.floor(Math.random() * (8 - 4) + 4)
+    }
+}
+
 
 function setup() {
     createCanvas(windowWidth, windowHeight);
@@ -24,13 +28,13 @@ function setup() {
     noFill();
     smooth();
     turtle();
-    
+
 }
 
 
 function turtle() {
-    background(11);
-    strokeWeight(2);
+    background(flowerConfig.baseColor.r - 150, flowerConfig.baseColor.g - 150, flowerConfig.baseColor.b - 150);
+    strokeWeight(1.5);
     angle = radians(Math.random() * (25 - 15) + 15);
     resetMatrix();
     translate(width / 2, height);
@@ -41,9 +45,9 @@ function turtle() {
             line(0, 0, 0, -len);
             translate(0, -len);
         } else if (current == '*') {
-            fill(Math.random() * 255, Math.random() * 255, Math.random() * 255);
+            scale(Math.random() * (len / 25));
             makeFlower();
-          
+
         } else if (current == '+') {
             let positiveRotation = angle * Math.random() * randomSeed;
             rotate(positiveRotation);
@@ -64,7 +68,7 @@ function turtle() {
 }
 
 function generateStems(iterations) {
-    for (i = iterations - 1; i > 0 ; i--) {
+    for (i = iterations - 1; i > 0; i--) {
         stroke(100, 100, 50);
         branch();
     }
@@ -77,9 +81,9 @@ function branch() {
         var current = sentence.charAt(i);
         var found = false;
         for (var j = 0; j < rules.length; j++) {
-          
+
             if (current == rules[j].a) {
-              
+
                 found = true;
                 nextSentence += rules[j].b;
                 break;
@@ -94,7 +98,7 @@ function branch() {
 }
 
 function draw() {
-    background(11);
-    generateStems(5);
+    background(flowerConfig.baseColor.r - 50, flowerConfig.baseColor.g - 50, flowerConfig.baseColor.b - 50);
+    generateStems(mainConfig.stems.stemCount);
     noLoop();
 }
