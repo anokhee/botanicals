@@ -1,68 +1,39 @@
-var flower = {
-    baseColor: {
-        rMax: Math.random() * 255,
-        rMin: Math.random() * 250,
+// Declares a flower variable - this represents the entire flower, 
+// including all its petals and the pistil. 
+var flower;
 
-        gMax: Math.random() * 255,
-        gMin: Math.random() * 255,
+function Flower() {
+    this.petalCount = 3;
+    this.pistilRadius = 5;
+    this.cp1x = 0;
+    this.cp1y = 0;
+    this.cp2x = 30;
+    this.cp2y = -25;
+    this.cp3x = 6;
+    this.cp3y = 15;
+    this.cp4x = 0;
+    this.cp4y = 0;
 
-        bMax: Math.random() * 250,
-        bMin: Math.random() * 100
-    },
-    density: 1,
-    numVertices: {
-        max: 5,
-        min: 5
-    },
-    outerRadius: {
-        xMax: 20,
-        xMin: 10,
-
-        yMax: 20,
-        yMin: 10
-    },
-    innerRadius: {
-        xMax: 10,
-        xMin: 10,
-
-        yMax: 10,
-        yMin: 10
-    }
+    this.color = [255, 255, 255];
 }
 
-function makeFlower(sides, sideLength) {
-    let r = (Math.random() * (flower.baseColor.rMax - flower.baseColor.rMin) + flower.baseColor.rMin);
-    let g = (Math.random() * (flower.baseColor.gMax - flower.baseColor.gMin) + flower.baseColor.gMin);
-    let b = (Math.random() * (flower.baseColor.bMax - flower.baseColor.bMin) + flower.baseColor.bMin)
 
-    let numVertices = Math.floor(Math.random() * (flower.numVertices.max - flower.numVertices.min) + flower.numVertices.min);
-
-    let outerRadiusX = Math.random() * (flower.outerRadius.xMax - flower.outerRadius.xMin) + flower.outerRadius.xMin;
-    let outerRadiusY = Math.random() * (flower.outerRadius.yMax - flower.outerRadius.yMin) + flower.outerRadius.yMin;
-
-    let innerRadiusX = Math.random() * (flower.innerRadius.xMax - flower.innerRadius.xMin) + flower.innerRadius.xMin;
-    let innerRadiusY = Math.random() * (flower.innerRadius.yMax - flower.innerRadius.yMin) + flower.innerRadius.yMin;
-
-
-    fill(r, g, b);
-    const spacing = 360 / numVertices;
-
+function makePetals() {
     beginShape();
-    for (let i = 0; i < numVertices + 1; i++) {
-        const angle = i * spacing;
-        const x = cos(radians(angle)) * innerRadiusX;
-        const y = sin(radians(angle)) * innerRadiusY;
-        if (i == 0) {
-            vertex(x, y);
-        } else {
-            const cAngle = angle - spacing / 2;
-            const cX = cos(radians(cAngle)) * outerRadiusX;
-            const cY = sin(radians(cAngle)) * outerRadiusY;
-            quadraticVertex(cX, cY, x, y)
-        }
-    }
+    vertex(flower.cp1x, flower.cp1y);
+    bezierVertex(flower.cp2x, flower.cp2y, flower.cp3x, flower.cp3y, flower.cp4x, flower.cp4y);
+    bezierVertex(flower.cp3x, -flower.cp3y, flower.cp2x, -flower.cp2y, flower.cp1x, flower.cp1y); // if first 2 numbers are changed to 20, 130 it becomes continuous
     endShape();
+}
 
-    fill(255, 255, 0);
-    ellipse(0, 0, Math.random() * 7);
+function makeFlower() {
+    for (let i = 0; i < flower.petalCount * 2; i++) {
+        fill(flower.color);
+        strokeWeight(.5);
+        makePetals();
+        rotate(PI / flower.petalCount);
+    }
+    fill(230, 230, 0);
+    ellipse(0, 0, flower.pistilRadius);
+    noLoop();
 }
