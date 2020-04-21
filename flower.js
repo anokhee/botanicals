@@ -9,8 +9,8 @@ var flowerConfig = {
         randomOffset: 1
     },
     baseColor: {
-        r: Math.random() * 150, 
-        g: Math.random() * 150, 
+        r: Math.random() * 150,
+        g: Math.random() * 150,
         b: Math.random() * 150
     }
 }
@@ -28,11 +28,11 @@ function Flower() {
     this.cp4y = 0;
 
     this.color = [255, 255, 255];
-    this.stroke = [];
+    this.stroke = [20, 20, 20];
 }
 
 
-function makePetals() {
+function makePetal() {
     beginShape();
     vertex(flower.cp1x, flower.cp1y);
     bezierVertex(flower.cp2x, flower.cp2y, flower.cp3x, flower.cp3y, flower.cp4x, flower.cp4y);
@@ -40,13 +40,15 @@ function makePetals() {
     endShape();
 }
 
+// This function creates a flower by rotating the petal created in 
+// makePetals() around the pistal `petalCount * 2` number of times
 function makeFlower() {
     let colorOff = Math.random() * 200;
     noStroke();
-    fill(flowerConfig.baseColor.r + colorOff, flowerConfig.baseColor.g + colorOff, flowerConfig.baseColor.b + colorOff);
+    fill(flowerConfig.baseColor.r + colorOff + Math.random(100), flowerConfig.baseColor.g + colorOff, flowerConfig.baseColor.b + colorOff);
     for (let i = 0; i < flower.petalCount * 2; i++) {
         strokeWeight(.5);
-        makePetals();
+        makePetal();
         rotate(PI / flower.petalCount);
     }
     fill(230, 230, 0);
