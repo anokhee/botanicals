@@ -13,7 +13,7 @@ var mainConfig = {
             colorOff: Math.random() * (255 - -10) + -10,
             pistilColor: [baseColor.r + 200, baseColor.g + 200, baseColor.b + 25]
         },
-        density: Math.floor(Math.random() * (2 - 1) + 1),
+        density: 1,
         petalControlPoints: {
             cp1x: Math.random() * (45 - (-45) + -45),
             cp1y: 0,
@@ -38,7 +38,7 @@ var mainConfig = {
             b: Math.random() * (50)
         },
         count: Math.floor(Math.random() * (8 - 4) + 4),
-        randomSeed: Math.floor(Math.random() * (2.5 - 2) + 2),
+        randomSeed: Math.floor(Math.random() * (2.2 - 1.8) + 1.8),
         strokeWeight: 1.25
     }
 }
