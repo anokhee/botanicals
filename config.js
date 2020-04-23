@@ -37,7 +37,7 @@ var mainConfig = {
             g: Math.random() * (120 - 90) + 90,
             b: Math.random() * (50)
         },
-        count: Math.floor(Math.random() * (8 - 5) + 5),
+        count: Math.floor(Math.random() * (8 - 4) + 4),
         randomSeed: Math.floor(Math.random() * (2.5 - 2) + 2),
         strokeWeight: 1.25
     }

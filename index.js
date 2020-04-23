@@ -32,7 +32,7 @@ function turtle() {
             translate(0, -len);
         } else if (current == '*') {
             if (i % mainConfig.flowers.density === 0) {
-                scale(Math.random() * (len / (Math.random() * (35 - 15) + 15)));
+                scale(Math.random() * (len / (Math.random() * (45 - 10) + 10)));
                 makeFlower();
             }
         } else if (current == '+') {
