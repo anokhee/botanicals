@@ -1,5 +1,5 @@
 const axiom = 'F';
-let len = Math.random() * ((window.innerHeight / 2.1) - window.innerHeight / 2.4) + window.innerHeight / 2.4;
+let len = Math.random() * ((window.innerHeight / 2.45) - window.innerHeight / 2.6) + window.innerHeight / 2.6;
 let sentence = axiom;
 let count = 0;
 
@@ -14,31 +14,19 @@ rules[1] = {
     b: 'GG'
 };
 
-var mainConfig = {
-    stems: {
-        count: Math.floor(Math.random() * (8 - 5) + 5)
-    },
-    flowers: {
-        density: Math.floor(Math.random() * (3 - 1) + 1)
-    }
-}
-
-
 function setup() {
     createCanvas(windowWidth, windowHeight - 25);
 }
 
-
-
 function turtle() {
-    background(3, 3, 3);
-    strokeWeight(1.5);
+    background(11);
     angle = radians(Math.random() * (25 - 15) + 15);
     resetMatrix();
     translate(width / 2, height);
     for (var i = 0; i < sentence.length; i++) {
+        strokeWeight(mainConfig.stems.strokeWeight);
+        stroke(mainConfig.stems.color.r, mainConfig.stems.color.g, mainConfig.stems.color.b);
         var current = sentence.charAt(i);
-        var randomSeed = 2;
         if (current == 'F' || current == 'G') {
             line(0, 0, 0, -len);
             translate(0, -len);
@@ -48,10 +36,10 @@ function turtle() {
                 makeFlower();
             }
         } else if (current == '+') {
-            let positiveRotation = angle * Math.random() * randomSeed;
+            let positiveRotation = angle * Math.random() * mainConfig.stems.randomSeed;
             rotate(positiveRotation);
         } else if (current == '-') {
-            let negativeRotation = -angle * Math.random() * randomSeed;
+            let negativeRotation = -angle * Math.random() * mainConfig.stems.randomSeed;
             rotate(negativeRotation);
         } else if (current == '[') {
             push();
@@ -67,7 +55,6 @@ function turtle() {
 
 function generateStems(iterations) {
     for (i = iterations - 1; i > 0; i--) {
-        stroke(100, 100, 50);
         branch();
     }
 }
@@ -95,8 +82,6 @@ function branch() {
 }
 
 function draw() {
-    flower = new Flower();
-    stroke(10);
     noFill();
     smooth();
     turtle();
@@ -104,8 +89,3 @@ function draw() {
     generateStems(mainConfig.stems.count);
     noLoop();
 }
-
-function redrawFlower(){
-    
-}
-

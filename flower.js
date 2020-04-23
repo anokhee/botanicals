@@ -1,57 +1,31 @@
-// Declares a flower variable - this represents the entire flower, 
-// including all its petals and the pistil. 
-var flower;
-
-var flowerConfig = {
-    petalCount: {
-        min: 2,
-        max: 5,
-        randomOffset: 1
-    },
-    baseColor: {
-        r: Math.random() * 150,
-        g: Math.random() * 150,
-        b: Math.random() * 150
-    }
-}
-
-function Flower() {
-    this.petalCount = Math.floor(Math.random() * (flowerConfig.petalCount.max - flowerConfig.petalCount.min) + flowerConfig.petalCount.min);
-    this.pistilRadius = Math.random() * 20;
-    this.cp1x = Math.random() * (45 - (-45) + -45);
-    this.cp1y = 0;
-    this.cp2x = Math.random() * (45 - (-20) + -20);
-    this.cp2y = Math.random() * (45 - (-45) + -45);
-    this.cp3x = Math.random() * (45 - (-20) + -20);
-    this.cp3y = Math.random() * (45 - (-45) + -45);
-    this.cp4x = 0;
-    this.cp4y = 0;
-
-    this.color = [255, 255, 255];
-    this.stroke = [20, 20, 20];
-}
-
-
+// This function creates a single petal from two continuous Bezier curves.
 function makePetal() {
+    let fcp = mainConfig.flowers.petalControlPoints;
     beginShape();
-    vertex(flower.cp1x, flower.cp1y);
-    bezierVertex(flower.cp2x, flower.cp2y, flower.cp3x, flower.cp3y, flower.cp4x, flower.cp4y);
-    bezierVertex(flower.cp3x, -flower.cp3y, flower.cp2x, -flower.cp2y, flower.cp1x, flower.cp1y); // if first 2 numbers are changed to 20, 130 it becomes continuous
+    vertex(fcp.cp1x, fcp.cp1y);
+    bezierVertex(fcp.cp2x, fcp.cp2y, fcp.cp3x, fcp.cp3y, fcp.cp4x, fcp.cp4y);
+    bezierVertex(fcp.cp3x, -fcp.cp3y, fcp.cp2x, -fcp.cp2y, fcp.cp1x, fcp.cp1y); // if first 2 numbers are changed to 20, 130 it becomes continuous
     endShape();
 }
 
 // This function creates a flower by rotating the petal created in 
 // makePetals() around the pistal `petalCount * 2` number of times
 function makeFlower() {
-    let colorOff = Math.random() * 200;
-    noStroke();
-    fill(flowerConfig.baseColor.r + colorOff + Math.random(100), flowerConfig.baseColor.g + colorOff, flowerConfig.baseColor.b + colorOff);
-    for (let i = 0; i < flower.petalCount * 2; i++) {
-        strokeWeight(.5);
+    stroke(baseColor.r, baseColor.g, baseColor.b, .5);
+    strokeWeight(.25);
+    let f = mainConfig.flowers.color;
+    let rOff = Math.random() * (f.colorOff - f.colorOff) + f.colorOff;
+    let gOff = Math.random() * (f.colorOff - f.colorOff) + f.colorOff;
+    let bOff = Math.random() * (f.colorOff - f.colorOff) + f.colorOff;
+    let brightOff = Math.random() * (200 - -200) + -200;
+    fill(f.r + rOff + brightOff, f.g + gOff + brightOff, f.b + bOff + brightOff);
+
+    let petalCount = (mainConfig.flowers.petalCount.max - mainConfig.flowers.petalCount.min) + mainConfig.flowers.petalCount.min;
+    for (let i = 0; i < petalCount * 2; i++) {
         makePetal();
-        rotate(PI / flower.petalCount);
+        rotate(PI / petalCount);
     }
-    fill(230, 230, 0);
-    ellipse(0, 0, flower.pistilRadius);
+    fill(f.pistilColor);
+    ellipse(0, 0, mainConfig.flowers.pistilRadius);
     noLoop();
 }

@@ -1,8 +1,28 @@
+// https://anokhee.github.io/botanicals/flower-editor.html/
+
+function TestFlower() {
+    this.petalColor = [255, 255, 255];
+    this.petalCount = Math.floor(Math.random() * (mainConfig.flowers.petalCount.max - mainConfig.flowers.petalCount.min) + mainConfig.flowers.petalCount.max);
+    this.pistilColor = [255, 255, 0];
+    this.pistilRadius = Math.random() * 30;
+    this.stroke = [20, 20, 20];
+
+    // Petal control points 1 - 4
+    this.cp1x = Math.random() * (45 - (-45) + -45);
+    this.cp1y = 0;
+    this.cp2x = Math.random() * (45 - (-20) + -20);
+    this.cp2y = Math.random() * (45 - (-45) + -45);
+    this.cp3x = Math.random() * (45 - (-20) + -20);
+    this.cp3y = Math.random() * (45 - (-45) + -45);
+    this.cp4x = 0;
+    this.cp4y = 0;
+}
+
 function setup() {
     createCanvas(windowWidth, windowHeight);
 
     // Instantiates the variable flower as a new Flower() object. 
-    flower = new Flower();
+    flower = new TestFlower();
 
     // The createGUI function creates a dat.GUI in the top right corner of the screen.
     // dat.GUI allows us to easily play around with attributes of the flower for testing/debugging.
@@ -15,7 +35,7 @@ function windowResized() {
 }
 
 function draw() {
-    background(20);
+    background(11);
     strokeWeight(5);
     stroke(200, 200, 255);
     // Creates the grid, which in this case is just the x and y axes cutting through the origin. 
@@ -31,14 +51,14 @@ function draw() {
 
 function makeTestFlower() {
     noStroke();
-    fill(flower.color);
+    fill(flower.petalColor);
     stroke(flower.stroke);
     for (let i = 0; i < flower.petalCount * 2; i++) {
         strokeWeight(1);
         makePetal();
         rotate(PI / flower.petalCount);
     }
-    fill(230, 230, 0);
+    fill(flower.pistilColor)
     ellipse(0, 0, flower.pistilRadius);
     noLoop();
 }
@@ -56,7 +76,8 @@ function createGUI() {
     let gui = new dat.GUI();
     gui.add(flower, 'pistilRadius', 0, 100).name("Pistil Radius").onChange(redraw);
     gui.add(flower, 'petalCount', 0, 10).name("Petal Count").onChange(redraw);
-    gui.addColor(flower, 'color').onChange(redraw);
+    gui.addColor(flower, 'petalColor').onChange(redraw);
+    gui.addColor(flower, 'pistilColor').onChange(redraw);
 
     gui.add(flower, 'cp1x', -100, 100).name('ControlPoint1 - X').onChange(redraw);
     gui.add(flower, 'cp1y', -100, 100).name('ControlPoint1 - Y').onChange(redraw);
