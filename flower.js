@@ -17,7 +17,7 @@ function makeFlower() {
     let rOff = Math.random() * (f.colorOff - f.colorOff) + f.colorOff;
     let gOff = Math.random() * (f.colorOff - f.colorOff) + f.colorOff;
     let bOff = Math.random() * (f.colorOff - f.colorOff) + f.colorOff;
-    let brightOff = Math.random() * (200 - -200) + -200;
+    let brightOff = Math.random() * (f.brightOff.max - f.brightOff.min) + f.brightOff.min;
     fill(f.r + rOff + brightOff, f.g + gOff + brightOff, f.b + bOff + brightOff);
 
     let petalCount = (mainConfig.flowers.petalCount.max - mainConfig.flowers.petalCount.min) + mainConfig.flowers.petalCount.min;
@@ -29,3 +29,4 @@ function makeFlower() {
     ellipse(0, 0, mainConfig.flowers.pistilRadius);
     noLoop();
 }
+

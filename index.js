@@ -1,12 +1,14 @@
 const axiom = 'F';
-let len = Math.random() * ((window.innerHeight / 2.45) - window.innerHeight / 2.6) + window.innerHeight / 2.6;
+let len = Math.random() * ((window.innerHeight / 2.35) - window.innerHeight / 2.6) + window.innerHeight / 2.6;
 let sentence = axiom;
 let count = 0;
+
+let bgc = [22];
 
 const rules = [];
 rules[0] = {
     a: 'F',
-    b: 'G[+F][-F]GF*'
+    b: 'Go[+F][-F]GF*'
 };
 
 rules[1] = {
@@ -15,12 +17,12 @@ rules[1] = {
 };
 
 function setup() {
-    createCanvas(windowWidth, windowHeight - 25);
+    createCanvas(450, windowHeight - 55);
 }
 
 function turtle() {
-    background(11);
-    angle = radians(Math.random() * (25 - 15) + 15);
+    background(bgc);
+    angle = radians(Math.random() * (mainConfig.stems.angle.max - mainConfig.stems.angle.min) + mainConfig.stems.angle.min);
     resetMatrix();
     translate(width / 2, height);
     for (var i = 0; i < sentence.length; i++) {
@@ -32,7 +34,7 @@ function turtle() {
             translate(0, -len);
         } else if (current == '*') {
             if (i % mainConfig.flowers.density === 0) {
-                scale(Math.random() * (len / (Math.random() * (45 - 10) + 10)));
+                scale(Math.random() * (-len / (Math.random() * (mainConfig.flowers.scale.max - mainConfig.flowers.scale.min) + mainConfig.flowers.scale.min)))
                 makeFlower();
             }
         } else if (current == '+') {

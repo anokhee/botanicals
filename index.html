@@ -9,7 +9,7 @@
   <script src="./addons/dat.gui.js"></script>
   <style>
     body {
-      background: rgba(5, 5, 5);
+      background: rgba(255, 245, 245);
       animation: fadeInAnimation ease .5s;
       animation-iteration-count: 1;
       animation-fill-mode: forwards;
@@ -25,16 +25,16 @@
       }
     }
 
-    button {
-      color: #eee;
+    button.refresh {
+      color: red;
       font-family: 'Inconsolata', monospace;
-      font-size: 14px;
-      font-weight: 400;
+      font-size: 16px;
+      font-weight: 800;
       position: absolute;
       top: 10%;
       left: 10%;
       background: none;
-      border: 2px solid #eee;
+      border: 1px solid red;
       padding: 8px;
       padding-left: 12px;
       padding-right: 12px;
@@ -50,7 +50,7 @@
 </head>
 
 <body style="display: block; justify-content: center; margin: 0 auto;">
-  <button onClick="location.reload()">New Flower</button>
+  <button class="refresh" onClick="location.reload()">New Flower</button>
 </body>
 <script src="config.js"></script>
 <script src="flower.js"></script>
