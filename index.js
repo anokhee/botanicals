@@ -3,7 +3,7 @@ let len = Math.random() * ((window.innerHeight / 2.35) - window.innerHeight / 2.
 let sentence = axiom;
 let count = 0;
 
-let bgc = [22];
+let bgc = [11];
 
 const rules = [];
 rules[0] = {

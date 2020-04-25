@@ -1,7 +1,7 @@
 var baseColor = {
-    r: Math.random() * (200 - 100) + 100,
-    g: Math.random() * (200 - 100) + 100,
-    b: Math.random() * (200 - 100) + 100
+    r: Math.random() * 200,
+    g: Math.random() * 200,
+    b: Math.random() * 205
 }
 
 var mainConfig = {
@@ -11,10 +11,10 @@ var mainConfig = {
             g: baseColor.g,
             b: baseColor.b,
             brightOff: {
-                max: 100,
-                min: -100
+                max: 200,
+                min: -200
             },
-            colorOff: Math.random() * (80 - -100) + -100,
+            colorOff: Math.random() * (100 - -60) + -60,
             pistilColor: [baseColor.r + 180, baseColor.g + 200, baseColor.b + 25],
         },
         scale: {
@@ -25,10 +25,10 @@ var mainConfig = {
         petalControlPoints: {
             cp1x: Math.random() * (35 - (-35) + -25),
             cp1y: 0,
-            cp2x: Math.random() * (35 - (-20) + -20),
-            cp2y: Math.random() * (35 - (-35) + -25),
-            cp3x: Math.random() * (35 - (-20) + -20),
-            cp3y: Math.random() * (35 - (-35) + -25),
+            cp2x: Math.random() * (35 - (-30) + -30),
+            cp2y: Math.random() * (35 - (-35) + -35),
+            cp3x: Math.random() * (35 - (-30) + -30),
+            cp3y: Math.random() * (35 - (-35) + -35),
             cp4x: 0,
             cp4y: 0,
         },
@@ -42,7 +42,7 @@ var mainConfig = {
     stems: {
         angle : {
             max: 32,
-            min: 10
+            min: 18
         },
         color: {
             r: Math.random() * (120 - 90) + 90,
