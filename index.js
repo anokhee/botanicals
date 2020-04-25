@@ -1,9 +1,9 @@
 const axiom = 'F';
-let len = Math.random() * ((window.innerHeight / 2.35) - window.innerHeight / 2.6) + window.innerHeight / 2.6;
+let len = Math.random() * ((window.innerHeight / 2.15) - window.innerHeight / 2.6) + window.innerHeight / 2.6;
 let sentence = axiom;
 let count = 0;
 
-let bgc = [11];
+let bgc;
 
 const rules = [];
 rules[0] = {
@@ -17,14 +17,21 @@ rules[1] = {
 };
 
 function setup() {
-    createCanvas(450, windowHeight - 55);
+    createCanvas(450, windowHeight - 25);
+    if (baseColor.r + baseColor.g + baseColor.b <= 300){
+        bgc = [250, 250, 250];
+    } else {
+        bgc = [11];
+    }
 }
 
 function turtle() {
-    background(bgc);
+   background(bgc);
+  
+    
     angle = radians(Math.random() * (mainConfig.stems.angle.max - mainConfig.stems.angle.min) + mainConfig.stems.angle.min);
     resetMatrix();
-    translate(width / 2, height);
+    translate(width / 2, height - 15);
     for (var i = 0; i < sentence.length; i++) {
         strokeWeight(mainConfig.stems.strokeWeight);
         stroke(mainConfig.stems.color.r, mainConfig.stems.color.g, mainConfig.stems.color.b);
@@ -34,7 +41,7 @@ function turtle() {
             translate(0, -len);
         } else if (current == '*') {
             if (i % mainConfig.flowers.density === 0) {
-                scale(Math.random() * (-len / (Math.random() * (mainConfig.flowers.scale.max - mainConfig.flowers.scale.min) + mainConfig.flowers.scale.min)))
+                scale(Math.random() * (len / (Math.random() * (mainConfig.flowers.scale.max - mainConfig.flowers.scale.min) + mainConfig.flowers.scale.min)));
                 makeFlower();
             }
         } else if (current == '+') {

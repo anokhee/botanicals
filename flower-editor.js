@@ -55,12 +55,20 @@ function makeTestFlower() {
     stroke(flower.stroke);
     for (let i = 0; i < flower.petalCount * 2; i++) {
         strokeWeight(1);
-        makePetal();
+        makeTestPetal();
         rotate(PI / flower.petalCount);
     }
     fill(flower.pistilColor)
     ellipse(0, 0, flower.pistilRadius);
     noLoop();
+}
+
+function makeTestPetal() {
+    beginShape();
+    vertex(flower.cp1x, flower.cp1y);
+    bezierVertex(flower.cp2x, flower.cp2y, flower.cp3x, flower.cp3y, flower.cp4x, flower.cp4y);
+    bezierVertex(flower.cp3x, -flower.cp3y, flower.cp2x, -flower.cp2y, flower.cp1x, flower.cp1y); // if first 2 numbers are changed to 20, 130 it becomes continuous
+    endShape();
 }
 
 
