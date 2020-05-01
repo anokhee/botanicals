@@ -10,15 +10,6 @@ Generating plants with Lindenmayer Systems -- WIP.
 
 ### Output
 <br><br>
-Phase 1 - Basic Fractal Stems(4/12/2020)
-<img width="auto" src="./imgs/version01-fractals.png">
-<br><br>
-Phase 2 - L-Systems With Some Randomness (4/15/2020)
-<img width="auto" src="./imgs/version02-lsystems.png">
-<br><br>
-Phase 3 - Rudimentary Flowers (4/17/2020)
-<img width="auto" src="./imgs/version03-rudimentary-flowers.png">
-<br><br>
-Phase 4 - Basic Randomization (4/21/2020)
-<img width="auto" src="./imgs/version04-basic-randomization.png">
+<img src="./imgs/dark.png">
+<img src="./imgs/light.png">
 
