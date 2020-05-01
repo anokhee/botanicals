@@ -1,6 +1,8 @@
 # Botanicals 
 
-Generating plants with Lindenmayer Systems -- WIP. 
+Generating flower-like structures with Lindenmayer Systems fractals.
+
+<a href="https://anokhee.github.io/botanicals/">View Demo</a>
 
 ### Resources
 <ul>
@@ -10,6 +12,7 @@ Generating plants with Lindenmayer Systems -- WIP.
 
 ### Output
 <br><br>
-<img src="./imgs/dark.png">
 <img src="./imgs/light.png">
+<img src="./imgs/dark.png">
+
 
