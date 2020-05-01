@@ -19,7 +19,7 @@ var mainConfig = {
         },
         scale: {
             min: 10,
-            max: 35
+            max: 25
         },
         density: 1,
         petalControlPoints: {

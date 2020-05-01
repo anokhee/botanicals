@@ -27,8 +27,6 @@ function setup() {
 
 function turtle() {
    background(bgc);
-  
-    
     angle = radians(Math.random() * (mainConfig.stems.angle.max - mainConfig.stems.angle.min) + mainConfig.stems.angle.min);
     resetMatrix();
     translate(width / 2, height - 15);
@@ -75,7 +73,6 @@ function branch() {
         var current = sentence.charAt(i);
         var found = false;
         for (var j = 0; j < rules.length; j++) {
-
             if (current == rules[j].a) {
                 found = true;
                 nextSentence += rules[j].b;
@@ -93,8 +90,12 @@ function branch() {
 function draw() {
     noFill();
     smooth();
-    turtle();
     background(3, 3, 3);
-    generateStems(mainConfig.stems.count);
+    createSingleFlower();
     noLoop();
+}
+
+function createSingleFlower(){
+    turtle();
+    generateStems(mainConfig.stems.count);
 }
