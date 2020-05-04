@@ -1,5 +1,7 @@
 const axiom = 'F';
-let len = Math.random() * ((window.innerHeight / 2.15) - window.innerHeight / 2.6) + window.innerHeight / 2.6;
+let w = window.innerWidth;
+let h = window.innerHeight
+let len = Math.random() * ((h / 2.15) - h / 2.6) + h / 2.6;
 let sentence = axiom;
 let count = 0;
 
@@ -17,7 +19,7 @@ rules[1] = {
 };
 
 function setup() {
-    createCanvas(450, windowHeight - 25);
+    createCanvas(w, h);
     if (baseColor.r + baseColor.g + baseColor.b <= 300){
         bgc = [250, 250, 250];
     } else {
