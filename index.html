@@ -1,67 +1,14 @@
-<html>
-
-<head>
-  <meta charset="UTF-8">
-  <script language="javascript" type="text/javascript" src="https://cdn.jsdelivr.net/npm/p5@1.0.0/lib/p5.min.js">
-  </script>
-  <link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@200;300&display=swap" rel="stylesheet">
-
-  <script src="./addons/dat.gui.js"></script>
-  <style>
-    body {
-      background: rgba(255, 245, 245);
-      animation: fadeInAnimation ease .5s;
-      animation-iteration-count: 1;
-      animation-fill-mode: forwards;
-    }
-
-    @keyframes fadeInAnimation {
-      0% {
-        opacity: 0;
-      }
-
-      100% {
-        opacity: 1;
-      }
-    }
-
-    button.refresh {
-      display: block;
-      color: red;
-      font-family: 'Inconsolata', monospace;
-      font-size: 16px;
-      font-weight: 800;
-      background: none;
-      border: 1px solid red;
-      padding: 8px;
-      padding-left: 12px;
-      padding-right: 12px;
-    }
-
-    .container {
-      position: absolute;
-      top: 10%;
-      left: 10%;
-    }
-
-    canvas {
-      width: 500px;
-      display: flex;
-      margin: 0 auto;
-      margin-top: 12px;
-    }
-  </style>
-</head>
-
-<body style="display: block; justify-content: center; margin: 0 auto;">
-  <div class="container">
-    <h2>Botanicals</h2>
-    <button class="refresh" onClick="location.reload()">New Flower</button><br>
-  </div>
-
-</body>
-<script src="config.js"></script>
-<script src="flower.js"></script>
-<script language="javascript" type="text/javascript" src="index.js"></script>
-
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="./addons/dat.gui.js"></script>
+  </head>
+  <body>
+    <canvas id="myCanvas"> No canvas support! </canvas>
+  </body>
+  <script src="./index.js"></script>
 </html>
