@@ -1,36 +1,43 @@
-const gui = new dat.GUI();
+let gui = new dat.GUI();
+
+let stemAnglesArr = [];
+
+let params = {
+  iterations: 1,
+  angleOff: Math.random() * 20,
+  seedRange: 3,
+  lenMultiplier: 10,
+  flower: {
+    color: "red",
+    size: 15,
+    sides: 6,
+  },
+  stems: {
+    randomOff: Math.random() * 10,
+  },
+};
+
+let plant;
 
 const init = () => {
   const html = document.getElementsByTagName("html").item(0),
     canvas = document.getElementsByTagName("canvas").item(0),
     c = canvas.getContext("2d");
 
-  let params = {
-    iterations: 4,
-    flower: {
-      size: 12,
-      sides: 6,
-    },
-  };
-
-  let plant;
-
-  function line(x1, y1, x2, y2, color) {
-    c.strokeStyle = color;
-    c.beginPath();
-    c.moveTo(x1, y1);
-    c.lineTo(x2, y2);
-    c.stroke();
-  }
-
   class Plant {
     constructor(x, y, iterations, len) {
-      this.x = x;
-      this.y = y;
-      this.len = len;
       this.iterations = iterations;
 
-      this.angle = (Math.PI / 180) * 25;
+      // x & y position
+      this.x = x;
+      this.y = y;
+
+      // length of the stem
+      this.len = len;
+      this.lenMultiplier = params.lenMultiplier;
+
+      // l-system
+      this.angle = (Math.PI / 180) * params.angleOff;
       this.axiom = "F";
       this.sentence = this.axiom;
       this.rules = [];
@@ -42,15 +49,10 @@ const init = () => {
         a: "G",
         b: "GG",
       };
-
-      this.lenMultiplier = 0.5;
-
-      this.flowerSize = params.flower.size;
-      this.flowerSides = params.flower.sides;
     }
 
     generateLSystem() {
-      this.len *= this.lenMultiplier;
+      this.len / params.lenMultiplier;
       let nextSentence = "";
       for (let i = 0; i < this.sentence.length; i++) {
         let current = this.sentence[i];
@@ -67,7 +69,6 @@ const init = () => {
         }
       }
       this.sentence = nextSentence;
-      console.log(this.sentence);
       this.turtle();
     }
 
@@ -77,16 +78,22 @@ const init = () => {
 
       for (let i = 0; i < this.sentence.length; i++) {
         const current = this.sentence[i];
+        let randomSeed = new Math.seedrandom(this.sentence[i]);
+        stemAnglesArr.push(randomSeed() * 2);
 
         if (current === "F" || current === "G") {
-          line(0, 0, 0, -this.len);
+          line(c, 0, 0, 0, -this.len);
           c.translate(0, -this.len);
         } else if (current === "*") {
-          this.flower(this.flowerSides, this.flowerSize * 0.6);
+          this.flower(params.flower.sides, params.flower.size * 0.6);
+        } else if (current === "o") {
+          this.leaf(this.angle);
         } else if (current === "+") {
-          c.rotate(this.angle);
+          let positiveAngleOff = this.angle * stemAnglesArr[i];
+          c.rotate(this.angle + positiveAngleOff * params.seedRange);
         } else if (current === "-") {
-          c.rotate(-this.angle);
+          let negativeAngleOff = this.angle * stemAnglesArr[i];
+          c.rotate(-this.angle - negativeAngleOff * params.seedRange);
         } else if (current === "[") {
           c.save();
         } else if (current === "]") {
@@ -96,7 +103,7 @@ const init = () => {
     }
 
     flower(sides, sideLength) {
-      c.fillStyle = "red";
+      c.fillStyle = params.flower.color;
       c.beginPath();
       let angleIncrement = (Math.PI * 2) / sides;
       for (let i = 0; i <= sides; i++) {
@@ -119,6 +126,8 @@ const init = () => {
   const resize = () => {
     canvas.width = w = window.innerWidth;
     canvas.height = h = window.innerHeight;
+    window.requestAnimationFrame(draw);
+
     console.log(`screen resolution: ${w}px × ${h}px`);
   };
 
@@ -126,8 +135,26 @@ const init = () => {
     return { w: canvas.width, h: canvas.height };
   };
 
+  const setBackground = () => {
+    c.fillStyle = "white";
+    c.rect(0, 0, getResolution().w, getResolution().h);
+    c.fill();
+  };
+
   const getIterations = () => {
     return params.iterations;
+  };
+
+  const makeGUI = () => {
+    gui.destroy();
+    gui = new dat.GUI();
+
+    gui.add(params, "iterations", [1, 2, 3, 4, 5, 6]).onChange(setup);
+    gui.add(plant, "len", 0, 100, 1).onChange(draw);
+    gui.add(plant, "angle", 0, 1, 0.01).onChange(draw);
+    gui.add(params, "seedRange", 0, 10, 0.05).onChange(draw);
+    gui.add(params.flower, "size", 0, 100, 1).onChange(draw);
+    gui.add(params.flower, "sides", 0, 12, 1).onChange(draw);
   };
 
   const setup = () => {
@@ -135,26 +162,21 @@ const init = () => {
       getResolution().w,
       getResolution().h,
       getIterations(),
-      200
+      50 / getIterations()
     );
 
-    gui.add(plant, "len", 0, params.iterations * 4);
+    makeGUI();
 
-    gui.add(plant, "angle", -1.8, 1.8, 0.05);
-    gui.add(plant, "flowerSize", 0, 100);
-    gui.add(plant, "flowerSides", 0, 12, 1);
-
+    setBackground();
     plant.make();
+    draw();
   };
 
   const draw = (t) => {
     c.resetTransform();
-    c.fillStyle = "white";
-    c.rect(0, 0, getResolution().w, getResolution().h);
-    c.fill();
+    setBackground();
 
     plant.turtle();
-    window.requestAnimationFrame(draw);
   };
 
   let w,
@@ -167,7 +189,6 @@ const init = () => {
   window.addEventListener("resize", resize);
   resize();
   setup();
-  window.requestAnimationFrame(draw);
 };
 
 window.addEventListener("load", init);
