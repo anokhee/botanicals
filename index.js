@@ -21,7 +21,7 @@ let plant;
 
 const init = () => {
   const html = document.getElementsByTagName("html").item(0),
-    canvas = document.getElementsByTagName("canvas").item(0),
+    canvas = document.getElementById("flowerContainer"),
     c = canvas.getContext("2d");
 
   class Plant {
