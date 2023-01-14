@@ -141,6 +141,7 @@ const init = () => {
           params[item].default = params[item].value;
           params[item].value = this.value;
         });
+      }
       inputContainer.style.display = "flex";
     }
   };

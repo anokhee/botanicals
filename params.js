@@ -20,7 +20,7 @@ let params = {
     inputStep: 0.1,
   },
   plantLength: {
-    value: 30,
+    value: 20,
     typeOfInput: "range",
     inputLabel: "Plant Length",
     inputRange: [0, 100],
