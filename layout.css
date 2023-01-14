@@ -1,0 +1,22 @@
+.body-container {
+  display: flex;
+}
+
+#mainContainer,
+#flowerContainer,
+#the-gui {
+  padding: 1rem;
+  border: 1px solid black;
+}
+
+input {
+  display: block;
+  border-radius: 10px;
+  background-color: #efefef;
+  margin: 0.5rem;
+  width: 70%;
+}
+
+label {
+  width: 30%;
+}
